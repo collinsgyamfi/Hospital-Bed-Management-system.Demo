@@ -1,0 +1,1568 @@
+# PROJECT TITLE
+Juaboso Government Hospital — Smart Bed Management, Ward Coordination and Hospital Operations Dashboard
+
+## 1. PROJECT OVERVIEW
+
+Build a modern, secure, fully functional, responsive, web-based Hospital Bed Management and Ward Coordination System for Juaboso Government Hospital in the Western North Region of Ghana.
+
+The system will serve as a centralized digital platform connecting hospital management, ward managers, nurses, doctors, admission officers, emergency department staff, records officers, and other authorized healthcare personnel.
+
+The primary objective is to enable hospital management to know, at any time:
+
+- The total number of beds available across the hospital.
+- The number of occupied, available, reserved, blocked, and out-of-service beds.
+- Which wards are approaching full capacity or are already full.
+- Which departments urgently require additional beds.
+- Which wards have patients awaiting admission, discharge, or transfer.
+- Which wards have pending bed requests.
+- Where patients are being transferred from and where they are going.
+- Which departments need additional operational support.
+- What is happening across all wards without physically visiting each department.
+- How bed occupancy and demand change throughout the day, week, and month.
+
+The platform must provide live operational updates, centralized reporting, notifications, audit trails, and role-based access.
+
+This must be a working full-stack application, not merely a dashboard mockup or static design.
+
+All buttons, forms, filters, charts, tables, status changes, notifications, and user actions must work and be connected to the underlying database.
+
+Do not present fabricated operational information as actual hospital data. Use clearly labeled demonstration data during development and allow authorized administrators to replace it with verified hospital information.
+
+---
+
+## 2. DESIGN DIRECTION AND USER EXPERIENCE
+
+Create a premium, modern hospital management interface inspired by enterprise healthcare operations platforms.
+
+### Visual identity
+
+- Hospital name: Juaboso Government Hospital.
+- System name: JGH Smart Bed Management System.
+- Primary color: professional hospital blue.
+- Secondary color: teal or healthcare green.
+- Background: clean white and light grey.
+- Alert colors:
+  - Green: normal operations or available.
+  - Yellow or amber: approaching capacity or pending attention.
+  - Red: critical capacity or urgent operational attention.
+  - Grey: unavailable, inactive, or out of service.
+  - Blue: informational updates or requests in progress.
+
+Use colors alongside text labels and icons so that status is never communicated by color alone.
+
+### Layout
+
+Build a responsive application with:
+
+1. A collapsible left sidebar.
+2. A top navigation bar.
+3. A main dashboard workspace.
+4. Summary statistic cards.
+5. Interactive charts and tables.
+6. A live hospital activity feed.
+7. Notification indicators.
+8. A global search feature.
+9. Date and ward filters.
+10. A user profile and account menu.
+
+The interface must work on desktop computers, tablets, and smartphones.
+
+Prioritize desktop use in hospital management offices and tablet or mobile use by ward staff.
+
+### Top navigation bar
+
+Include:
+
+- Hospital name and logo placeholder.
+- Current date and time in Ghana.
+- Hospital-wide search.
+- Notification bell with unread count.
+- Connection status indicator.
+- User profile and role.
+- Account settings.
+- Secure logout.
+
+Use the Africa/Accra timezone and Ghana cedi conventions where financial figures are later introduced.
+
+Display the last successful data synchronization time and clearly indicate when information may be stale.
+
+---
+
+## 3. MAIN DASHBOARD: EXECUTIVE HOSPITAL OVERVIEW
+
+Create the main dashboard as the first page after login.
+
+It must provide an at-a-glance overview of bed capacity and hospital activity.
+
+### A. Key performance indicator cards
+
+Display the following cards:
+
+**1. Total Installed Beds**
+- Total commissioned beds across all registered wards.
+- Exclude beds that have never been commissioned.
+- Allow authorized administrators to update verified capacity.
+
+**2. Operational Beds**
+- Beds currently available for clinical use, including occupied beds.
+- Exclude beds temporarily or permanently out of service.
+
+**3. Occupied Beds**
+- Number of beds currently assigned to admitted patients.
+- Calculate automatically from current bed assignments.
+
+**4. Available Beds**
+- Number of operational beds that are not occupied or reserved.
+- Exclude blocked and out-of-service beds.
+
+**5. Hospital Occupancy Rate**
+- Calculate using occupied beds divided by operational beds, multiplied by 100.
+- Display the numerator and denominator.
+- Do not count reserved beds as occupied unless a patient has actually been assigned to the bed.
+
+**6. Patients Awaiting Admission**
+- Count patients with approved admission requests who have not yet received a bed.
+- Display how long each patient has been waiting, subject to access permissions.
+
+**7. Pending Bed Requests**
+- Total unresolved bed requests from all wards and departments.
+- Show urgent requests separately.
+
+**8. Pending Transfers**
+- Number of transfers awaiting acceptance, transport, or completion.
+
+**9. Beds Out of Service**
+- Number of beds unavailable because of repairs, cleaning restrictions, infection-control requirements, or other approved reasons.
+
+**10. Wards Requiring Attention**
+- Number of wards exceeding their configured occupancy warning threshold or reporting urgent operational needs.
+
+Each card must be clickable and open the relevant filtered page.
+
+Allow users to select a date or reporting period where historical comparisons are applicable.
+
+Do not invent percentage changes or comparisons if historical data is unavailable.
+
+### B. Hospital occupancy visualization
+
+Create an interactive doughnut chart or equivalent visualization showing:
+
+- Occupied beds.
+- Available beds.
+- Reserved beds.
+- Blocked beds.
+- Out-of-service beds.
+
+Use mutually exclusive categories and ensure that their totals reconcile with operational and installed capacity.
+
+Clearly explain that beds outside operational service are excluded from the operational-bed denominator.
+
+### C. Occupancy by ward
+
+Create an interactive horizontal bar chart displaying each ward's occupancy percentage.
+
+For each ward, show:
+
+- Ward name.
+- Occupied beds.
+- Operational capacity.
+- Available beds.
+- Occupancy percentage.
+- Configured warning threshold.
+- Current operational status.
+
+Example demonstration wards:
+
+- Emergency and Casualty.
+- Male Medical Ward.
+- Female Medical Ward.
+- Paediatric Ward.
+- Maternity Ward.
+- Labour and Delivery Ward.
+- Surgical Ward.
+- Postoperative Recovery.
+- Neonatal Unit.
+- Isolation Ward.
+- Other hospital-approved units.
+
+These are example ward categories, not a claim about the hospital's actual structure. Authorized administrators must be able to add, edit, deactivate, and configure wards to match Juaboso Government Hospital.
+
+### D. Ward capacity status
+
+Show a prominent operational status for each ward:
+
+- NORMAL: occupancy below the configured warning threshold.
+- APPROACHING CAPACITY: occupancy has reached the warning threshold.
+- HIGH OCCUPANCY: occupancy has reached a higher configured threshold.
+- FULL: no operational, unoccupied, unreserved beds remain.
+- OVER CAPACITY: occupied bed assignments exceed operational capacity.
+- SERVICE DISRUPTION: the ward has reported a significant operational issue.
+- DATA STALE: the ward has not synchronized within the configured period.
+
+Allow authorized administrators to configure the warning and critical thresholds.
+
+Suggested initial settings are:
+
+- Normal: below 80%.
+- Approaching capacity: 80% to below 90%.
+- High occupancy: 90% to 100%.
+- Over capacity: above 100%.
+
+These are configurable operational defaults, not clinical standards.
+
+The system must not silently assign patients to beds when doing so would exceed capacity. It must show the exception, request authorized review, and record the decision.
+
+### E. Live hospital activity feed
+
+Create a live activity panel titled "What's Happening Across the Hospital."
+
+Show recent authorized operational events such as:
+
+- A patient admitted to the Male Medical Ward.
+- A bed released after a completed discharge.
+- A bed marked out of service.
+- A new bed request from the Emergency Department.
+- A transfer requested from the Maternity Ward.
+- A receiving ward accepting a transfer.
+- A ward reporting high occupancy.
+- A cleaning task completed.
+- An admission request awaiting approval.
+- An urgent operational issue reported by a ward manager.
+
+Each activity item should include:
+
+- Event type.
+- Ward or department.
+- Event time.
+- Status.
+- Responsible staff member, where appropriate.
+- Action required.
+- Link to the relevant record, subject to permissions.
+
+Provide filters for all wards, individual wards, departments, event types, priority, and time range.
+
+Updates should appear automatically through real-time subscriptions or an equivalent event-driven mechanism.
+
+If a real-time connection is lost, display a connection warning and attempt to reconnect.
+
+Never display a disconnected ward as fully up to date.
+
+---
+
+## 4. WARD AND DEPARTMENT MANAGEMENT
+
+Create a dedicated page called "Wards & Departments."
+
+This page must connect every registered ward and department to the central bed management system.
+
+### Ward directory
+
+Display a searchable table or grid containing:
+
+- Ward name.
+- Ward code.
+- Department.
+- Ward manager.
+- Assigned staff or shift lead, where appropriate.
+- Installed bed capacity.
+- Operational bed capacity.
+- Occupied beds.
+- Available beds.
+- Reserved beds.
+- Blocked beds.
+- Out-of-service beds.
+- Occupancy rate.
+- Pending admissions.
+- Pending transfers.
+- Pending bed requests.
+- Current operational status.
+- Last updated time.
+
+Provide sorting, filters, pagination, and CSV export for authorized users.
+
+### Individual ward workspace
+
+When a user clicks a ward, open a detailed workspace with the following tabs:
+
+1. Overview.
+2. Bed Map.
+3. Current Admissions.
+4. Pending Admissions.
+5. Bed Requests.
+6. Transfers.
+7. Discharges.
+8. Cleaning and Bed Readiness.
+9. Operational Issues.
+10. Activity History.
+11. Ward Reports.
+
+### Ward overview
+
+Display:
+
+- Ward occupancy and capacity.
+- Available beds.
+- Patients awaiting placement.
+- Expected discharges.
+- Incoming transfers.
+- Outgoing transfers.
+- Beds undergoing cleaning.
+- Beds awaiting maintenance.
+- Open operational issues.
+- Latest ward updates.
+
+Include a "Report Ward Update" form that allows authorized ward staff to communicate important operational changes to management.
+
+### Ward status reporting
+
+Staff should be able to submit updates such as:
+
+- Bed shortage.
+- High patient demand.
+- Staff shortage.
+- Equipment problem.
+- Maintenance requirement.
+- Cleaning delay.
+- Infection-control restriction.
+- Delayed patient transfer.
+- Delayed discharge.
+- Other operational concerns.
+
+Each report must include:
+
+- Category.
+- Description.
+- Priority.
+- Affected ward.
+- Date and time.
+- Assigned responsible team.
+- Resolution status.
+- Comments and updates.
+
+Urgent issues should generate notifications for the relevant managers.
+
+Clinical incidents and sensitive clinical information must be handled under separately defined permissions and hospital policies.
+
+---
+
+## 5. BED MANAGEMENT MODULE
+
+Create a comprehensive bed management workspace.
+
+### Individual bed records
+
+Every registered bed must have a unique bed ID.
+
+Example format:
+
+- JGH-MMW-001: Male Medical Ward.
+- JGH-FMW-001: Female Medical Ward.
+- JGH-PAED-001: Paediatric Ward.
+
+These are example identifiers only.
+
+Each bed record should contain:
+
+- Unique bed ID.
+- Ward.
+- Bed category.
+- Location within the ward.
+- Operational status.
+- Current assignment, if any.
+- Current patient reference, where permitted.
+- Cleaning status.
+- Maintenance status.
+- Last status change.
+- Staff member who performed the change.
+- Reason for blocking or disabling the bed, if applicable.
+
+### Bed statuses
+
+Support these statuses:
+
+- AVAILABLE.
+- RESERVED.
+- OCCUPIED.
+- AWAITING_CLEANING.
+- CLEANING_IN_PROGRESS.
+- BLOCKED.
+- OUT_OF_SERVICE.
+
+A bed must never be simultaneously assigned to two active patients.
+
+### Bed Map
+
+Build an interactive visual bed map for each ward.
+
+Represent each bed as a clickable tile or card.
+
+When selected, display a detail panel showing the bed's current status, ward, permitted assignment details, cleaning state, and available actions.
+
+Allow authorized staff to:
+
+- Assign an available bed.
+- Reserve a bed for an approved admission.
+- Release a bed after a confirmed discharge or transfer.
+- Report a maintenance issue.
+- Block a bed with a reason.
+- Mark a bed as awaiting cleaning.
+- Mark cleaning as complete.
+- Restore a bed to available status after all required checks.
+
+Do not allow a bed to return to AVAILABLE while a maintenance hold or other blocking condition remains unresolved.
+
+Require confirmation for high-impact changes and log the user, time, and reason.
+
+### Automatic bed availability calculation
+
+Calculate availability from the bed's current assignment and status.
+
+When a patient is discharged or transferred, do not automatically mark the bed as immediately available.
+
+Instead, move it through the appropriate cleaning and readiness workflow when required by hospital policy.
+
+Once the required cleaning, inspection, and maintenance checks are complete, an authorized user can return the bed to AVAILABLE.
+
+---
+
+## 6. PATIENT ADMISSION AND BED ALLOCATION
+
+Create an admission coordination module that connects the Emergency Department, outpatient services where applicable, inpatient wards, and admission staff.
+
+### Admission request form
+
+Capture the minimum information needed for admission coordination:
+
+- Admission request ID.
+- Hospital patient number or approved temporary identifier.
+- Patient identity fields required by hospital policy.
+- Referring department.
+- Requested ward or care unit.
+- Requested bed category.
+- Admission priority assigned by authorized clinical staff.
+- Request creation time.
+- Requesting staff member.
+- Approval status.
+- Bed allocation status.
+- Notes necessary for safe placement.
+
+Clinical triage and admission decisions must remain with authorized healthcare professionals.
+
+The software must not independently diagnose patients or make clinical placement decisions.
+
+### Admission workflow
+
+Use the following workflow:
+
+1. An authorized staff member creates an admission request.
+2. The request is reviewed by the appropriate authorized person.
+3. The receiving ward is identified.
+4. The system checks current operational bed availability.
+5. A suitable bed is reserved or assigned by an authorized user.
+6. The receiving ward confirms acceptance.
+7. The patient is admitted and the bed becomes occupied.
+8. The dashboard updates automatically.
+9. The activity feed records the event.
+10. The request is closed with a complete audit trail.
+
+Provide an exception workflow for emergency situations according to hospital policy.
+
+Emergency exceptions must be authorized, clearly flagged, and audited. The application must not substitute occupancy software for clinical judgment.
+
+### Admission queue
+
+Display:
+
+- Request ID.
+- Patient reference.
+- Referring department.
+- Requested ward.
+- Priority.
+- Waiting time.
+- Approval status.
+- Allocation status.
+- Responsible staff member.
+- Next required action.
+
+Support filtering by priority, waiting time, ward, and status.
+
+Avoid exposing identifiable patient information to users who do not need it.
+
+---
+
+## 7. BED REQUEST AND INTER-WARD COORDINATION
+
+Create a dedicated "Bed Requests" module.
+
+Any authorized ward or department must be able to submit a request for additional beds or a suitable placement.
+
+### Bed request categories
+
+Support:
+
+- Urgent inpatient bed request.
+- Routine admission bed request.
+- Transfer bed request.
+- Additional temporary capacity request.
+- Bed replacement request.
+- Bed maintenance request.
+- Special bed category request.
+- Other operational requests.
+
+### Request form
+
+Each request must include:
+
+- Request ID.
+- Requesting department.
+- Requested destination ward, if known.
+- Number of beds requested.
+- Bed category.
+- Priority.
+- Reason for request.
+- Date and time submitted.
+- Requesting staff member.
+- Assigned manager.
+- Current status.
+- Resolution notes.
+
+### Request statuses
+
+- SUBMITTED.
+- UNDER_REVIEW.
+- APPROVED.
+- REJECTED.
+- PARTIALLY_FULFILLED.
+- FULFILLED.
+- CANCELLED.
+
+### Request workflow
+
+When a request is submitted:
+
+1. Record it in the central database.
+2. Notify the appropriate ward manager or administrator.
+3. Notify management for requests meeting configured escalation rules.
+4. Check available capacity across eligible wards.
+5. Display potential options to authorized staff.
+6. Require human confirmation before reallocating capacity or moving patients.
+7. Record the decision and notify the requesting department.
+8. Track resolution time and outstanding demand.
+
+A request for three beds must not be marked fully fulfilled when only one bed has been provided.
+
+Display requested, approved, allocated, and outstanding quantities separately.
+
+### Hospital-wide bed demand overview
+
+Build a centralized page showing:
+
+- Requests by department.
+- Requests by priority.
+- Requests by age.
+- Unfulfilled requests.
+- Departments with recurring bed shortages.
+- Average request resolution time.
+- Bed requests fulfilled within the selected reporting period.
+
+Allow management to identify demand patterns and prioritize operational responses.
+
+---
+
+## 8. PATIENT TRANSFER MANAGEMENT
+
+Create a transfer coordination module connecting wards and departments.
+
+### Transfer workflow
+
+1. An authorized staff member creates a transfer request.
+2. The sending ward records the transfer reason and destination.
+3. The appropriate receiving ward reviews the request.
+4. The receiving ward accepts, rejects, or requests clarification.
+5. The responsible staff coordinate patient readiness and movement.
+6. The transfer is marked as in progress.
+7. The receiving ward confirms arrival.
+8. The system updates the patient location and bed assignments.
+9. The sending bed enters the appropriate cleaning or readiness workflow.
+10. Both wards and authorized management users receive the update.
+
+### Transfer information
+
+Record:
+
+- Transfer ID.
+- Patient reference.
+- Sending ward.
+- Receiving ward.
+- Requesting staff member.
+- Authorized clinical reason or category.
+- Priority.
+- Request time.
+- Receiving ward response.
+- Transfer status.
+- Departure time.
+- Arrival confirmation time.
+- Completion time.
+- Outstanding actions.
+
+### Transfer status
+
+- REQUESTED.
+- AWAITING_ACCEPTANCE.
+- ACCEPTED.
+- REJECTED.
+- READY_FOR_TRANSFER.
+- IN_PROGRESS.
+- COMPLETED.
+- CANCELLED.
+
+Use database transactions to prevent the same patient from occupying two active inpatient bed assignments.
+
+A transfer must not be completed merely because the sending ward initiated it. The receiving ward must confirm the patient's arrival and assignment.
+
+If a transfer is rejected or delayed, notify the responsible staff and preserve the reason in the audit history.
+
+---
+
+## 9. DISCHARGE AND BED READINESS
+
+Create a discharge management module.
+
+### Discharge coordination
+
+Track:
+
+- Expected discharge date, when available.
+- Authorized discharge status.
+- Discharge readiness.
+- Outstanding operational tasks.
+- Confirmed discharge time.
+- Responsible staff member.
+- Bed cleaning status.
+- Bed readiness status.
+
+### Discharge workflow
+
+1. Authorized clinical staff document the discharge decision.
+2. The system records the expected discharge.
+3. Ward staff coordinate outstanding discharge tasks.
+4. The patient is confirmed as discharged.
+5. The active bed assignment is closed.
+6. The bed enters the cleaning or readiness process.
+7. Required checks are completed.
+8. The bed becomes available after authorization.
+
+Show expected discharges separately from completed discharges.
+
+Never release a bed solely because an expected discharge time has passed.
+
+### Bed readiness dashboard
+
+Display:
+
+- Beds awaiting cleaning.
+- Beds being cleaned.
+- Beds awaiting inspection.
+- Beds awaiting maintenance.
+- Beds ready for release.
+- Average time between discharge and bed readiness.
+
+Allow filtering by ward, duration, and responsible team.
+
+---
+
+## 10. REAL-TIME WARD COMMUNICATION
+
+Create a centralized "Hospital Operations Feed" connecting all wards and departments.
+
+This module must make it possible for management to understand operational changes without relying exclusively on phone calls or informal messaging.
+
+### Communication features
+
+Include:
+
+- Ward announcements.
+- Bed shortage alerts.
+- Capacity warnings.
+- Admission notifications.
+- Transfer updates.
+- Bed readiness updates.
+- Maintenance notifications.
+- Operational incident reports.
+- Management instructions.
+- Acknowledgment and resolution tracking.
+
+### Example operational event
+
+When the Emergency Department reports that it requires two inpatient beds:
+
+1. The Emergency Department submits a bed request.
+2. The request appears immediately in the central request queue.
+3. The relevant receiving wards are checked for reported capacity.
+4. The appropriate managers receive notifications.
+5. Management can review the available options.
+6. A receiving ward can respond to the request.
+7. The request status changes automatically.
+8. The hospital dashboard updates.
+9. The complete sequence is recorded in the activity history.
+
+### Ward communication panel
+
+Each ward should have an internal operational message area.
+
+Authorized users must be able to:
+
+- Publish a ward update.
+- Send a message to another ward.
+- Notify a department manager.
+- Acknowledge an alert.
+- Assign an action to a staff member.
+- Update an issue's resolution status.
+- View relevant previous updates.
+
+Use structured operational messages and threaded discussions where appropriate.
+
+Do not use this feature as an unrestricted substitute for an approved clinical record or emergency communication procedure.
+
+---
+
+## 11. NOTIFICATIONS AND ESCALATION
+
+Implement an in-app notification system.
+
+Where configured and technically available, support email or SMS notifications through approved providers.
+
+### Notification events
+
+Generate notifications for:
+
+- A ward approaching its capacity threshold.
+- A ward reaching critical occupancy.
+- A ward exceeding operational capacity.
+- A new urgent bed request.
+- An admission awaiting bed allocation.
+- A receiving ward accepting or rejecting a transfer.
+- A transfer remaining incomplete beyond its expected interval.
+- A bed becoming unavailable.
+- A maintenance issue affecting capacity.
+- A cleaning task remaining unresolved.
+- A request exceeding its response-time target.
+- A ward failing to synchronize.
+- An operational issue remaining unresolved.
+
+### Escalation rules
+
+Allow administrators to configure:
+
+- Warning and critical occupancy thresholds.
+- Which roles receive each alert.
+- Notification timing.
+- Escalation intervals.
+- Acknowledgment requirements.
+- Reminder frequency.
+- Quiet hours for non-urgent alerts, where appropriate.
+
+Urgent operational alerts must follow hospital policy.
+
+Prevent duplicate notifications from repeatedly triggering for the same unresolved condition.
+
+Provide a notification center containing:
+
+- New notifications.
+- Acknowledged notifications.
+- Resolved notifications.
+- Priority.
+- Related ward or department.
+- Creation time.
+- Responsible person.
+- Resolution status.
+
+---
+
+## 12. MANAGEMENT ANALYTICS AND REPORTS
+
+Create a reporting and analytics module for hospital management.
+
+### A. Bed occupancy reports
+
+Report on:
+
+- Current occupancy by ward.
+- Daily occupancy.
+- Weekly occupancy.
+- Monthly occupancy.
+- Average occupancy by ward.
+- Peak occupancy periods.
+- Historical bed availability.
+- Out-of-service bed trends.
+- Capacity changes over time.
+
+Clearly distinguish a current snapshot from historical averages.
+
+### B. Admission reports
+
+Include:
+
+- Total admissions.
+- Admissions by ward.
+- Admissions by referring department.
+- Admissions by date.
+- Admission waiting times.
+- Admissions awaiting placement.
+- Admission request completion rates.
+
+### C. Transfer reports
+
+Include:
+
+- Total transfers.
+- Transfers between each ward.
+- Pending transfers.
+- Completed transfers.
+- Delayed transfers.
+- Average transfer completion time.
+- Transfer rejection reasons.
+
+### D. Bed demand reports
+
+Include:
+
+- Number of bed requests.
+- Requests by department.
+- Requests by priority.
+- Unfulfilled requests.
+- Average request resolution time.
+- Repeated demand for particular bed categories.
+- Peak bed demand periods.
+
+### E. Bed readiness reports
+
+Include:
+
+- Average discharge-to-ready time.
+- Cleaning turnaround time.
+- Beds awaiting maintenance.
+- Time lost to maintenance.
+- Repeated causes of bed unavailability.
+
+### F. Operational performance indicators
+
+Provide configurable reporting on:
+
+- Occupancy rate.
+- Bed availability rate.
+- Admission waiting time.
+- Bed request fulfillment rate.
+- Transfer completion time.
+- Bed turnaround time.
+- Out-of-service bed percentage.
+- Ward response time.
+- Duration of unresolved operational issues.
+
+Document each metric's formula and reporting period.
+
+For example:
+
+Occupancy rate = Occupied beds ÷ Operational beds × 100.
+
+Bed request fulfillment rate = Requests fully fulfilled ÷ Eligible requests submitted in the selected period × 100.
+
+For requests spanning multiple reporting periods, clearly define how the reporting date is determined.
+
+### Reports and exports
+
+Allow authorized users to:
+
+- Select a date range.
+- Filter by ward or department.
+- Compare wards.
+- View charts and detailed tables.
+- Export approved reports to CSV.
+- Generate printable reports.
+- Export management summaries to PDF where supported.
+
+Apply permissions and data minimization to every export.
+
+Do not include patient-identifying information in management summaries unless explicitly required and authorized.
+
+---
+
+## 13. USER ROLES AND ACCESS CONTROL
+
+Implement role-based access control.
+
+### Role 1: System Administrator
+
+Permissions:
+
+- Manage user accounts.
+- Assign roles.
+- Configure hospital settings.
+- Create and edit wards.
+- Configure bed categories.
+- Register beds.
+- Manage operational thresholds.
+- Configure notification rules.
+- Review system health.
+- Review audit logs.
+- Manage integrations.
+
+System administrators should not automatically receive unrestricted access to clinical records simply because they administer the software.
+
+### Role 2: Hospital Management
+
+Permissions:
+
+- View the hospital-wide dashboard.
+- Monitor occupancy across all wards.
+- View operational alerts.
+- Review bed demand.
+- Monitor transfers.
+- View authorized reports.
+- Review unresolved operational issues.
+- Approve specified capacity requests.
+- Track department performance.
+
+Patient-level access should be limited to the minimum information needed for authorized operational duties.
+
+### Role 3: Ward Manager
+
+Permissions:
+
+- View the assigned ward.
+- View and manage its bed inventory.
+- Review admissions and transfers.
+- Submit bed requests.
+- Report operational problems.
+- Coordinate cleaning and readiness.
+- Assign permitted ward tasks.
+- View ward-level reports.
+- Receive and respond to relevant notifications.
+
+### Role 4: Nurse or Authorized Ward Staff
+
+Permissions:
+
+- View relevant ward bed status.
+- Record permitted bed status changes.
+- Update assigned operational tasks.
+- Submit ward reports.
+- Coordinate approved admissions and transfers.
+- Acknowledge relevant alerts.
+
+Access to clinical information must follow separately configured permissions.
+
+### Role 5: Admission Officer
+
+Permissions:
+
+- Create and review admission coordination records.
+- Submit bed requests.
+- View permitted bed availability.
+- Track approved allocations.
+- Coordinate admission workflows.
+
+### Role 6: Doctor or Authorized Clinical Officer
+
+Permissions:
+
+- Access clinical functions specifically authorized for the role.
+- Submit or review admission and transfer requests.
+- Record permitted clinical decisions.
+- View necessary patient information.
+
+### Role 7: Cleaning and Maintenance Staff
+
+Permissions:
+
+- View assigned cleaning or maintenance tasks.
+- Update task status.
+- Record task completion.
+- Report problems preventing a bed from returning to service.
+
+These users must not have unrestricted access to patient records.
+
+### Role 8: Read-Only Auditor
+
+Permissions:
+
+- View approved reports.
+- Review authorized audit events.
+- Export permitted operational data.
+
+No permission to alter patient assignments or operational records.
+
+### Security requirements
+
+- Deny access by default.
+- Enforce permissions on the backend, not only in the user interface.
+- Validate every sensitive action.
+- Restrict ward-specific access where appropriate.
+- Require authorized approval for high-impact actions.
+- Keep a complete audit trail.
+- Terminate or expire inactive sessions according to policy.
+- Prevent users from granting themselves additional permissions.
+
+---
+
+## 14. LOGIN AND USER MANAGEMENT
+
+Build a secure authentication system.
+
+### Login page
+
+Include:
+
+- Hospital logo placeholder.
+- System name.
+- Username or approved email field.
+- Password field.
+- Show/hide password control.
+- Sign-in button.
+- Password reset workflow.
+- Clear validation messages.
+
+### User administration
+
+Allow authorized administrators to:
+
+- Create users.
+- Edit user details.
+- Assign approved roles.
+- Assign ward or department access.
+- Activate or deactivate accounts.
+- Reset accounts through a secure process.
+- Review recent account activity.
+- Revoke active sessions when necessary.
+
+Use secure authentication, password hashing, and appropriately configured session management.
+
+Require stronger authentication, such as multifactor authentication, for privileged accounts where supported and operationally feasible.
+
+Never expose passwords or authentication tokens in application logs.
+
+---
+
+## 15. DATABASE AND APPLICATION ARCHITECTURE
+
+Build a proper full-stack application with a persistent relational database.
+
+Recommended technology stack:
+
+- Frontend: React with TypeScript.
+- UI: Tailwind CSS and an accessible component library.
+- Charts: Recharts or a comparable charting library.
+- Backend: Supabase or a secure equivalent.
+- Database: PostgreSQL.
+- Authentication: Supabase Auth or a comparable managed authentication service.
+- Realtime updates: PostgreSQL change subscriptions or an equivalent event-driven mechanism.
+- File storage: private object storage for approved documents, if required.
+- Hosting: a secure production hosting platform with appropriate regional and operational considerations.
+
+Choose one consistent stack rather than mixing incompatible implementations.
+
+### Required database entities
+
+Design normalized tables or equivalent relational structures for:
+
+1. hospitals.
+2. departments.
+3. wards.
+4. ward_staff_assignments.
+5. beds.
+6. bed_status_history.
+7. patients.
+8. admissions.
+9. admission_requests.
+10. bed_assignments.
+11. bed_requests.
+12. transfers.
+13. discharges.
+14. cleaning_tasks.
+15. maintenance_tasks.
+16. ward_updates.
+17. operational_issues.
+18. notifications.
+19. notification_preferences.
+20. user_profiles.
+21. roles.
+22. permissions.
+23. user_ward_access.
+24. audit_logs.
+25. system_settings.
+
+Add supporting tables where necessary.
+
+### Important relationships
+
+- A department may contain multiple wards.
+- A ward may contain multiple beds.
+- A patient may have multiple historical admissions.
+- A patient may have only one active inpatient bed assignment at a time, unless a specifically authorized and documented exception exists.
+- A bed may have only one active patient assignment at a time.
+- Each transfer must reference its sending and receiving wards.
+- Each request must identify its requesting department and responsible workflow.
+- Each operational event must reference its originating user or system process.
+- Every sensitive status change must be auditable.
+
+Use appropriate foreign keys, unique constraints, indexes, and database transactions.
+
+Implement database-level protections against duplicate active bed assignments and concurrent allocation conflicts.
+
+Do not rely on frontend validation alone.
+
+### Bed status integrity
+
+Use explicit, validated state transitions.
+
+For example:
+
+AVAILABLE → RESERVED → OCCUPIED → AWAITING_CLEANING → CLEANING_IN_PROGRESS → AVAILABLE.
+
+Other valid paths may include:
+
+AVAILABLE → BLOCKED → AVAILABLE.
+
+AVAILABLE → OUT_OF_SERVICE → AVAILABLE.
+
+OCCUPIED → BLOCKED or OUT_OF_SERVICE must not be permitted as an ordinary status change without an approved workflow for the patient assignment and operational circumstances.
+
+Validate status changes against active assignments, cleaning tasks, maintenance holds, and applicable hospital policy.
+
+---
+
+## 16. REAL-TIME DATA SYNCHRONIZATION
+
+The hospital dashboard must stay synchronized across authorized users.
+
+When a ward staff member updates a bed, other authorized users should see the change without manually refreshing the page.
+
+Real-time updates should cover:
+
+- Bed status.
+- Bed availability.
+- Ward occupancy.
+- Admission queues.
+- Bed requests.
+- Transfers.
+- Discharge coordination.
+- Cleaning tasks.
+- Operational issues.
+- Notifications.
+- Activity feeds.
+
+### Technical requirements
+
+- Subscribe only to data the authenticated user is authorized to access.
+- Recalculate occupancy from authoritative database records.
+- Use transactional updates for related state changes.
+- Prevent duplicate event processing.
+- Handle temporary connection loss.
+- Retry failed connections with sensible backoff.
+- Reconcile data after reconnection.
+- Show last synchronization time.
+- Display a stale-data warning when updates are overdue.
+- Avoid presenting cached information as confirmed current availability.
+
+Where possible, keep a central event history for investigating discrepancies.
+
+The application should work across the hospital's authorized devices and network connections without requiring users to manually update each ward's dashboard.
+
+---
+
+## 17. LOW-BANDWIDTH AND NETWORK RESILIENCE
+
+Because hospital connectivity may be inconsistent, design the system to remain usable under limited network conditions.
+
+Requirements:
+
+- Optimize page size and initial loading time.
+- Use pagination for large datasets.
+- Load detailed patient information only when authorized users need it.
+- Provide clear loading and retry states.
+- Preserve unsent form drafts where safe.
+- Clearly distinguish saved changes from unsent changes.
+- Show when data is cached or potentially stale.
+- Prevent offline changes from silently overwriting newer records.
+- Use controlled retry and reconciliation mechanisms.
+- Avoid allowing offline actions to create conflicting bed assignments.
+
+Do not promise full offline functionality unless it has been explicitly implemented and tested.
+
+If the network is unavailable, show that new bed allocations cannot be confirmed until the server verifies them, unless a separately designed and approved offline workflow is available.
+
+---
+
+## 18. PRIVACY, SECURITY, AND GHANA HEALTHCARE CONTEXT
+
+The application will handle sensitive healthcare information and must be designed accordingly.
+
+Implement privacy and security controls appropriate to Ghana's applicable legal and regulatory requirements.
+
+Requirements include:
+
+- Least-privilege access.
+- Server-side authorization.
+- Secure authentication.
+- Encrypted connections using HTTPS.
+- Appropriate encryption at rest.
+- Database row-level security where supported.
+- Private file storage.
+- Secure secret management.
+- Audit trails.
+- Data backup and restoration procedures.
+- Session expiration.
+- Protection against common web application vulnerabilities.
+- Controlled exports.
+- Documented data retention and deletion rules.
+- A tested incident response procedure.
+- Protection against unauthorized bulk extraction of patient information.
+
+Before production deployment, conduct a compliance review against applicable Ghanaian requirements, including the Data Protection Act, 2012 (Act 843), and applicable healthcare confidentiality obligations.
+
+Determine any applicable requirements for data-controller registration, hosting location, data processing, data sharing, and retention with qualified local advisers.
+
+Do not assume that selecting a cloud platform automatically makes the application compliant.
+
+### Audit log requirements
+
+Record important events, including:
+
+- User login and logout.
+- Failed login attempts where supported.
+- Bed status changes.
+- Bed assignments.
+- Admission approvals.
+- Transfers.
+- Discharges.
+- Bed requests.
+- Ward configuration changes.
+- Permission changes.
+- Data exports.
+- Security-relevant administrative actions.
+
+Each audit event should contain:
+
+- Event ID.
+- User or system actor.
+- Event type.
+- Affected record reference.
+- Timestamp.
+- Relevant before-and-after values.
+- Reason where required.
+- Outcome.
+- Correlation or transaction ID where useful.
+
+Restrict audit-log access and protect the logs from unauthorized alteration.
+
+---
+
+## 19. SYSTEM SETTINGS
+
+Build an administrative settings page.
+
+Allow authorized administrators to configure:
+
+- Hospital name.
+- Hospital logo.
+- Departments.
+- Wards.
+- Ward managers.
+- Bed categories.
+- Bed capacity.
+- Occupancy warning thresholds.
+- Critical occupancy thresholds.
+- Notification recipients.
+- Escalation rules.
+- Reporting periods.
+- Timezone.
+- Date and time formats.
+- Approved admission priorities.
+- Bed readiness requirements.
+- User permissions.
+- Audit and retention policies.
+- Data synchronization warnings.
+
+Use Africa/Accra as the initial timezone.
+
+Make settings editable only by authorized users.
+
+Record changes to important settings in the audit log.
+
+---
+
+## 20. REQUIRED APPLICATION PAGES
+
+Implement the following complete pages:
+
+1. Login.
+2. Main Hospital Dashboard.
+3. Wards and Departments.
+4. Individual Ward Workspace.
+5. Bed Management.
+6. Interactive Bed Map.
+7. Admissions.
+8. Admission Request Details.
+9. Bed Requests.
+10. Transfer Management.
+11. Discharge Management.
+12. Bed Cleaning and Readiness.
+13. Maintenance Management.
+14. Hospital Operations Feed.
+15. Notifications Center.
+16. Reports and Analytics.
+17. User Management.
+18. Audit Logs.
+19. System Settings.
+20. User Profile and Security.
+
+Each page must have a clear purpose, useful loading states, appropriate empty states, error handling, and permission-aware actions.
+
+---
+
+## 21. FUNCTIONAL ACCEPTANCE REQUIREMENTS
+
+Do not consider the application complete until the following tests pass.
+
+### Test 1: Bed availability
+
+Given a ward with 30 operational beds and 24 occupied beds:
+
+- Available beds must equal 6 if no beds are reserved, blocked, or otherwise unavailable.
+- Occupancy must equal 80%.
+- The dashboard must show consistent totals across all relevant pages.
+
+### Test 2: New admission
+
+When an authorized user completes an admission into an available bed:
+
+- The admission is saved.
+- The bed assignment is created.
+- The bed status changes to occupied.
+- Available bed counts decrease by one.
+- Occupancy updates.
+- Relevant authorized users receive an update.
+- An audit event is recorded.
+
+### Test 3: Duplicate allocation prevention
+
+If two users attempt to assign the same bed simultaneously:
+
+- Only one conflicting assignment may succeed.
+- The other user receives a clear explanation.
+- No duplicate active assignment is created.
+
+### Test 4: Patient transfer
+
+When a transfer is completed:
+
+- The receiving ward confirms arrival.
+- The active patient location updates.
+- The previous assignment closes.
+- The receiving assignment is recorded.
+- Both wards receive relevant updates.
+- The sending bed enters the appropriate readiness workflow.
+- The event is audited.
+
+### Test 5: Discharge
+
+When a discharge is confirmed:
+
+- The active patient assignment closes.
+- The discharge record is saved.
+- The bed does not become available prematurely.
+- The cleaning or readiness workflow begins where required.
+- The dashboard reflects the change accurately.
+
+### Test 6: Urgent bed request
+
+When a ward submits an urgent request:
+
+- The request appears in the central queue.
+- Authorized managers receive the configured alert.
+- The request status can be updated.
+- Partial fulfillment is tracked accurately.
+- The request history is retained.
+
+### Test 7: Ward status update
+
+When a ward manager reports a bed shortage:
+
+- The update appears in the operations feed.
+- Relevant managers are notified.
+- The issue can be assigned.
+- Resolution is recorded.
+- The update remains in the activity history.
+
+### Test 8: Role-based permissions
+
+A user assigned only to the cleaning team must not be able to:
+
+- Approve admissions.
+- Reassign patients.
+- View unrestricted clinical records.
+- Change user roles.
+- Access unauthorized wards.
+
+The backend must reject unauthorized requests even if a user attempts to bypass the interface.
+
+### Test 9: Real-time updates
+
+When one authorized user changes a bed's status:
+
+- Other authorized dashboards update without a manual refresh.
+- Occupancy and availability remain consistent.
+- Connection failures are visible.
+- Reconnection restores synchronization.
+
+### Test 10: Reporting
+
+For a selected reporting period:
+
+- Totals reconcile with the underlying records.
+- Occupancy formulas are documented.
+- Filters work.
+- Exported results match the authorized on-screen report.
+- Patient information is excluded unless explicitly authorized.
+
+### Test 11: Capacity exceptions
+
+When occupied assignments exceed a ward's operational capacity:
+
+- The system flags the ward.
+- It does not hide the discrepancy.
+- An authorized exception workflow is available.
+- The decision is recorded.
+- Management receives the configured alert.
+
+### Test 12: Data persistence
+
+After logout, browser refresh, or application restart:
+
+- Saved records remain in the database.
+- User permissions remain enforced.
+- Historical activity remains available to authorized users.
+- Unsaved actions are not falsely reported as completed.
+
+---
+
+## 22. DEMONSTRATION DATA AND INITIAL DEPLOYMENT
+
+During development, populate the system with clearly labeled demonstration data.
+
+Example:
+
+Hospital: Juaboso Government Hospital.
+
+Demonstration wards:
+- Emergency and Casualty.
+- Male Medical Ward.
+- Female Medical Ward.
+- Paediatric Ward.
+- Maternity Ward.
+- Surgical Ward.
+
+Use fictional bed records, patient references, admission requests, transfer records, and activity events.
+
+Clearly display a DEMO DATA label.
+
+Do not imply that the demonstration figures represent the actual hospital.
+
+Before going live, authorized hospital personnel must:
+
+1. Confirm the actual department and ward structure.
+2. Verify installed and operational bed counts.
+3. Register individual beds.
+4. Configure bed categories.
+5. Create staff accounts.
+6. Assign roles and ward access.
+7. Configure occupancy thresholds.
+8. Configure escalation recipients.
+9. Validate the admission and transfer workflows.
+10. Review privacy and security requirements.
+11. Test backups and recovery.
+12. Train hospital personnel.
+13. Conduct a supervised pilot.
+14. Reconcile system records against actual ward conditions.
+15. Approve the production launch.
+
+Never migrate demonstration patient records into the production environment as real records.
+
+---
+
+## 23. FINAL BUILD INSTRUCTIONS
+
+Build this application in complete, testable stages.
+
+### Stage 1: Foundation
+
+- Establish the frontend and backend.
+- Configure the database.
+- Implement authentication.
+- Implement role-based access control.
+- Create the hospital, department, ward, and bed models.
+- Establish the design system.
+
+### Stage 2: Core bed management
+
+- Build the executive dashboard.
+- Build ward management.
+- Build the bed map.
+- Implement bed status transitions.
+- Implement occupancy calculations.
+- Implement audit logging.
+
+### Stage 3: Hospital coordination
+
+- Implement admission requests.
+- Implement bed requests.
+- Implement transfers.
+- Implement discharges.
+- Implement cleaning and maintenance workflows.
+- Implement ward updates.
+
+### Stage 4: Real-time operations
+
+- Implement live synchronization.
+- Implement notifications.
+- Implement escalation rules.
+- Implement the central operations feed.
+- Implement stale-data detection.
+
+### Stage 5: Analytics and reporting
+
+- Implement historical reports.
+- Implement management analytics.
+- Implement filters and exports.
+- Verify reporting calculations.
+
+### Stage 6: Security and deployment
+
+- Test access restrictions.
+- Test concurrent assignments.
+- Test data integrity.
+- Test network interruption and recovery.
+- Test backups and restoration.
+- Conduct security and privacy reviews.
+- Deploy to a secure production environment.
+
+### Non-negotiable requirements
+
+- Build working functionality, not just attractive screens.
+- Persist records in a real database.
+- Enforce permissions on the server.
+- Use transactional operations for bed allocation and transfer.
+- Prevent duplicate active bed assignments.
+- Calculate occupancy from authoritative records.
+- Implement working search, filters, forms, and reports.
+- Provide meaningful error messages.
+- Include realistic loading and empty states.
+- Use demonstration data only until verified hospital data is available.
+- Never invent live patient information or claim a ward has synchronized when it has not.
+- Do not expose secrets in frontend code.
+- Do not bypass security rules to make a demonstration work.
+- Do not use placeholder buttons for features described as implemented.
+- Include database migrations, deployment instructions, and automated tests.
+- Document any integrations that require additional credentials or paid services.
+
+The final product should function as a centralized digital command center for Juaboso Government Hospital, enabling management to monitor bed capacity, identify pressure points, coordinate wards, reduce avoidable delays, and make informed operational decisions using accurate and timely information.

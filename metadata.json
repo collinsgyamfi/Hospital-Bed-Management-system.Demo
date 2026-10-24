@@ -1,0 +1,6 @@
+{
+  "name": "JGH Smart Bed Management System",
+  "description": "Hospital Bed Management, Ward Coordination and Operations Dashboard for Juaboso Government Hospital in the Western North Region of Ghana.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
